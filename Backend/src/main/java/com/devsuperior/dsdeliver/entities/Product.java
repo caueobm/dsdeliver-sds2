@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.devsuperior.dsdeliver.dto.ProductDTO;
+
 
 @Entity
 @Table(name = "tb_product")
@@ -28,7 +30,14 @@ public class Product implements Serializable {
 	
 	public Product() {
 	}
-
+	
+	public Product(ProductDTO entity) {
+		name = entity.getName();
+		price = entity.getPrice();
+		description = entity.getDescription();
+		imageUri = entity.getImageUri();
+	}
+	
 	public Product(Long id, String name, Double price, String description, String imageUri) {
 		super();
 		this.id = id;

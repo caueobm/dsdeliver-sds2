@@ -8,19 +8,21 @@ import java.util.stream.Collectors;
 
 import com.devsuperior.dsdeliver.entities.Order;
 import com.devsuperior.dsdeliver.entities.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-public class OrderDTO implements Serializable{
+
+@JsonPropertyOrder({ "id", "address", "latitude", "longitude", "moment", "status", "products" })
+public class OrderDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
- 
+
 	private Long id;
 	private String address;
 	private Double latitude;
 	private Double longitude;
 	private Instant moment;
 	private OrderStatus status;
-
+	
 	private List<ProductDTO> products = new ArrayList<>();
 
 	public OrderDTO() {
@@ -34,16 +36,15 @@ public class OrderDTO implements Serializable{
 		this.moment = moment;
 		this.status = status;
 	}
+	
 	public OrderDTO(Order entity) {
 		id = entity.getId();
 		address = entity.getAddress();
 		latitude = entity.getLatitude();
 		longitude = entity.getLongitude();
 		moment = entity.getMoment();
-		status =entity.getStatus();
-		products = entity.getProducts().stream().map
-				(x -> new ProductDTO(x)).collect(Collectors.toList()); 
-		
+		status = entity.getStatus();
+		products = entity.getProducts().stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
 
 	public Long getId() {
@@ -97,9 +98,5 @@ public class OrderDTO implements Serializable{
 	public List<ProductDTO> getProducts() {
 		return products;
 	}
-
-	
 }
-
-
 
